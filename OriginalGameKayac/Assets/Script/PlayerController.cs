@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour {
 	void ChangeLane(){
 		transform.position = new Vector3(transform.position.x,
 			                             transform.position.y,
-			                             Mathf.Clamp(Input.GetAxis("Vertical")*8, Lane1.z, Lane2.z)
+			                             Mathf.Clamp(transform.position.z + Input.GetAxisRaw("Vertical")*4, Lane1.z, Lane2.z)
 			                             );
 	}
 }
