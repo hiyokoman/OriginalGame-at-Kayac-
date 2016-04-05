@@ -23,9 +23,9 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
 		float y = move.y;
 
-		move = new Vector3 (Input.GetAxis ("Horizontal"), 0.0f, 0.0f);
+		move = new Vector3 (Input.GetAxis ("Horizontal")*0.8f, 0.0f, 0.0f);
 		move *= speed;
-		move.y = y;
+		move.y += y;
 
 		//方向キー↑か↓を入力するとレーン移動
 		if (Input.GetKeyDown ("up") || Input.GetKeyDown ("down")) ChangeLane ();
