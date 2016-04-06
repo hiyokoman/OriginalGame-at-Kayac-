@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class Destroy : MonoBehaviour {
+public class Destroyer : MonoBehaviour {
 	
 	[SerializeField] 
 	private AudioClip[] voiceClip;
