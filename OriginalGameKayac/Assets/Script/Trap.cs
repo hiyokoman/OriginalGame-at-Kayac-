@@ -8,6 +8,7 @@ public class Trap : MonoBehaviour {
 	bool Switch = false;
 	GameObject child;	
 	GameObject inChild;
+	Vector3 colliderSize;
 
 	void Start () {
 		//トラップとその子のスキンメッシュオブジェクトを検索
@@ -30,5 +31,11 @@ public class Trap : MonoBehaviour {
 			child.GetComponent<Animation> ().enabled = true;
 			inChild.GetComponent<SkinnedMeshRenderer> ().enabled = true;
 		}
+	}
+
+	void OnDrawGizmos(){
+		colliderSize = GetComponent<BoxCollider>().size;
+		Gizmos.color = Color.yellow;
+		Gizmos.DrawWireCube (transform.localPosition, colliderSize);
 	}
 }
