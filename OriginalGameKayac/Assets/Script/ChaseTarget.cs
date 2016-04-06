@@ -17,6 +17,6 @@ public class ChaseTarget : MonoBehaviour {
 		cameraP.x = target.transform.position.x + distance.x;
 		cameraP.y = target.transform.position.y + distance.y;
 
-		transform.position = new Vector3 (cameraP.x, transform.position.y/*cameraP.y*/, transform.position.z);
+		transform.position = new Vector3 (cameraP.x, transform.position.y, transform.position.z);
 	}
 }

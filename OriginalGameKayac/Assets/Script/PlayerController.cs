@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(CharacterController))]
+//[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour {
 
 	private CharacterController controller;
@@ -21,6 +21,9 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update () {
+		//プレイヤーが死んでいたらreturn
+		if (GameObject.Find ("PlayerSphere") == null) return;
+
 		float y = move.y;
 
 		move = new Vector3 (Input.GetAxis ("Horizontal"), 0.0f, 0.0f);
