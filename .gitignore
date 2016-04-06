@@ -1,2 +1,5 @@
 OriginalGameKayac/Library/
 OriginalGameKayac/Temp/
+*.csproj
+*.sln
+*~
