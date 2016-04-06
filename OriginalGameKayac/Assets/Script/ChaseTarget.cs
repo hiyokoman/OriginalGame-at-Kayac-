@@ -3,8 +3,10 @@ using System.Collections;
 
 public class ChaseTarget : MonoBehaviour {
 
-	public GameObject target;
-	Vector3 distance, cameraP; 
+	[SerializeField]
+	private GameObject target;
+	Vector3 distance; //カメラとtargetの距離
+	Vector3 cameraP;  //カメラの位置
 
 	void Start () {
 		distance = transform.position - target.transform.position;
