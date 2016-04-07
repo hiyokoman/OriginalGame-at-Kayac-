@@ -15,9 +15,9 @@ public class Destroyer : MonoBehaviour {
 	//死亡処理
 	void OnTriggerEnter(Collider other){
 		if (other.tag == "Player") {
-			other.gameObject.SetActive(false);//プレイヤー削除
-			PlayVoice (Random.Range (0, voiceClip.Length));//ランダムでトラップのボイス再生
-			Invoke("SceneMove", 1.6f);//1.6秒後初めに戻る
+			other.gameObject.SetActive(false); //プレイヤー削除
+			PlayVoice ();                      //ランダムでトラップのボイス再生
+			Invoke("SceneMove", 1.6f);         //1.6秒後スタートに戻る
 		}
 	}
 
@@ -25,8 +25,8 @@ public class Destroyer : MonoBehaviour {
 		SceneManager.LoadScene("Main");
 	}
 
-	void PlayVoice(int i){
-		destroyVoice.clip = voiceClip [i];
+	void PlayVoice(){
+		destroyVoice.clip = voiceClip [Random.Range(0, voiceClip.Length)];
 		destroyVoice.Play();
 	}
 }
