@@ -17,10 +17,8 @@ public class Destroyer : MonoBehaviour {
 		if (other.tag == "Player") {
 			
 			Destroy (GameObject.Find ("PlayerSphere"));//プレイヤー削除
-
-			PlayVoice(Random.Range(0, voiceClip.Length));//ランダムでトラップのボイス再生
-
-			Invoke ("SceneMove", 2.0f);//2秒後初めに戻る
+			PlayVoice (Random.Range (0, voiceClip.Length));//ランダムでトラップのボイス再生
+			Invoke("SceneMove", 1.6f);//2秒後初めに戻る
 		}
 	}
 

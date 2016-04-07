@@ -5,6 +5,11 @@ public class Trap : MonoBehaviour {
 
 	[SerializeField]
 	private float x, y;
+	[SerializeField]
+	private float destroyTime;//トラップを消去するまでの時間
+	[SerializeField]
+	bool Static; //トラップが動くかどうか
+
 	bool Switch = false;
 	GameObject child;	
 	GameObject inChild;
@@ -20,7 +25,7 @@ public class Trap : MonoBehaviour {
 		//Switchがtrueになったらトラップを動かす
 		if (Switch == true) {
 			child.transform.position += new Vector3(x, y, 0) * Time.deltaTime;
-			Destroy (child, 3.0f);
+			if(Static == false) Destroy (child, destroyTime); //静的ではないトラップはdestroyTime後に消去
 		}	
 	}
 
@@ -36,6 +41,6 @@ public class Trap : MonoBehaviour {
 	void OnDrawGizmos(){
 		colliderSize = GetComponent<BoxCollider>().size;
 		Gizmos.color = Color.yellow;
-		Gizmos.DrawWireCube (transform.localPosition, colliderSize);
+		Gizmos.DrawWireCube (transform.position, colliderSize);
 	}
 }
