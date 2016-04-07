@@ -6,6 +6,7 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
 	private CharacterController controller;
+	private GameObject frontLight, backLight;
 	private Vector3 move = Vector3.zero;
 	private Vector3 diff;
 	private Renderer mat;
@@ -20,9 +21,11 @@ public class PlayerController : MonoBehaviour {
 	public int MaxJumpCount;       //ジャンプ回数上限
 	public Material front, back; //front用とback用のマテリアル
 
-	void Start () {
+	void Awake () {
 		controller = GetComponent<CharacterController> ();
 		mat = GetComponent<Renderer> ();
+		frontLight = transform.Find ("FrontLight").gameObject;
+		backLight = transform.Find ("BackLight").gameObject;
 	}
 
 	void Update () {
@@ -39,10 +42,15 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKeyDown ("up")) {
 			ChangeLane ();
 			mat.material = back; 
+			frontLight.GetComponent<Light> ().enabled = false;
+			backLight.GetComponent<Light> ().enabled = true;
+
 		}
 		else if(Input.GetKeyDown ("down")){
 			ChangeLane ();
 			mat.material = front; 
+			backLight.GetComponent<Light> ().enabled = false;
+			frontLight.GetComponent<Light> ().enabled = true;
 		}
 
 		//地面に接地した場合重力とジャンプ回数リセット

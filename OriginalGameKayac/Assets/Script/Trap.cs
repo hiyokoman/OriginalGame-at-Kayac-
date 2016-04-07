@@ -17,7 +17,7 @@ public class Trap : MonoBehaviour {
 	}
 
 	void Update(){
-		//Switchがtrue2なったらトラップを動かす
+		//Switchがtrueになったらトラップを動かす
 		if (Switch == true) {
 			child.transform.position += new Vector3(x, y, 0) * Time.deltaTime;
 			Destroy (child, 3.0f);
