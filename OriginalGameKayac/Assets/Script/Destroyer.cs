@@ -15,10 +15,9 @@ public class Destroyer : MonoBehaviour {
 	//死亡処理
 	void OnTriggerEnter(Collider other){
 		if (other.tag == "Player") {
-			
-			Destroy (GameObject.Find ("PlayerSphere"));//プレイヤー削除
+			other.gameObject.SetActive(false);//プレイヤー削除
 			PlayVoice (Random.Range (0, voiceClip.Length));//ランダムでトラップのボイス再生
-			Invoke("SceneMove", 1.6f);//2秒後初めに戻る
+			Invoke("SceneMove", 1.6f);//1.6秒後初めに戻る
 		}
 	}
 

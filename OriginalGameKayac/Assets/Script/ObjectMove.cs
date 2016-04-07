@@ -4,8 +4,7 @@ using System.Collections;
 public class ObjectMove : MonoBehaviour {
 
 	[SerializeField]
-	private float speed, amplitude;
-
+    float speed, amplitude;
 	Vector3 startPosition;
 	Vector3 diff;
 

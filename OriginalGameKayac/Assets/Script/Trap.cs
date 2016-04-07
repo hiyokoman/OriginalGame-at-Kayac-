@@ -3,14 +3,10 @@ using System.Collections;
 
 public class Trap : MonoBehaviour {
 
-	[SerializeField]
-	private float x, y;
-	[SerializeField]
-	private float destroyTime;//トラップを消去するまでの時間
-	[SerializeField]
-	bool Static; //トラップが動くかどうか
+	[SerializeField] float x, y;
+	[SerializeField] float destroyTime;//トラップを消去するまでの時間
+	[SerializeField] bool Static; //トラップが動くかどうか
 
-	bool Switch = false;
 	GameObject child;	
 	GameObject inChild;
 	Vector3 colliderSize;
@@ -22,20 +18,21 @@ public class Trap : MonoBehaviour {
 	}
 
 	void Update(){
-		//Switchがtrueになったらトラップを動かす
-		if (Switch == true) {
-			child.transform.position += new Vector3(x, y, 0) * Time.deltaTime;
-			if(Static == false) Destroy (child, destroyTime); //静的ではないトラップはdestroyTime後に消去
-		}	
+		//activeになったらトラップを動かす
+		if (child.activeSelf == true) {
+			child.transform.position += new Vector3 (x, y, 0) * Time.deltaTime;
+			if (Static == false) Invoke ("trapOff", destroyTime); //静的ではないトラップはdestroyTime後にoff
+		}
 	}
 
 	//プレイヤーがtriggerに触れたらtrap演出
 	void OnTriggerEnter(Collider other){
-		if (other.tag == "Player") {
-			Switch = true;
-			child.GetComponent<Animation> ().enabled = true;
-			inChild.GetComponent<SkinnedMeshRenderer> ().enabled = true;
-		}
+		if (other.tag == "Player") child.SetActive (true);
+	}
+
+	//トラップを非アクティブにする
+	void trapOff(){
+		child.SetActive (false);
 	}
 
 	void OnDrawGizmos(){

@@ -2,35 +2,38 @@
 using UnityEngine.Rendering;
 using System.Collections;
 
-//[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour {
 
-	private CharacterController controller;
-	private GameObject frontLight, backLight;
-	private Vector3 move = Vector3.zero;
-	private Vector3 diff;
-	private Renderer mat;
-	private readonly Vector3 Lane1 = new Vector3 (0, 0, -2); //手前のレーン
-	private readonly Vector3 Lane2 = new Vector3 (0, 0, 2);  //奥のレーン
-	private int jumpCount = 0;     //ジャンプ回数をカウント
+	CharacterController controller;
+	GameObject player, frontLight, backLight;
+	Vector3 move = Vector3.zero;
+	Vector3 diff;
+	Renderer mat;
+	readonly Vector3 Lane1 = new Vector3 (0, 0, -2); //手前のレーン
+	readonly Vector3 Lane2 = new Vector3 (0, 0, 2);  //奥のレーン
+	int jumpCount = 0;     //ジャンプ回数をカウント
 
-
-	public float speed = 6.0f;     //移動速度
-	public float jumpPower = 8.0f; //ジャンプの大きさ
-	public float gravity = 20.0f;  //重力
-	public int MaxJumpCount;       //ジャンプ回数上限
-	public Material front, back; //front用とback用のマテリアル
+	[SerializeField] float speed = 6.0f;     //移動速度
+	[SerializeField] float jumpPower = 8.0f; //ジャンプの大きさ
+	[SerializeField] float gravity = 20.0f;  //重力
+	[SerializeField] int MaxJumpCount;       //ジャンプ回数上限
+	[SerializeField] Material front, back; //front用とback用のマテリアル
 
 	void Awake () {
 		controller = GetComponent<CharacterController> ();
 		mat = GetComponent<Renderer> ();
+		player = GameObject.Find ("PlayerSphere");
 		frontLight = transform.Find ("FrontLight").gameObject;
 		backLight = transform.Find ("BackLight").gameObject;
+
+
 	}
 
 	void Update () {
+		
 		//プレイヤーが死んでいたらreturn
-		if (GameObject.Find ("PlayerSphere") == null) return;
+		if (player.activeSelf == null) return;
 
 		float y = move.y;
 
