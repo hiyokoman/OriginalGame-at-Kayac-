@@ -2,10 +2,9 @@
 using System.Collections;
 
 public class ObjectMove : MonoBehaviour {
-	
-	public float speed;
-	public float amplitude;
 
+	[SerializeField]
+    float speed, amplitude;
 	Vector3 startPosition;
 	Vector3 diff;
 
