@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Rendering;
 using System.Collections;
 
 //[RequireComponent(typeof(CharacterController))]
@@ -7,17 +8,21 @@ public class PlayerController : MonoBehaviour {
 	private CharacterController controller;
 	private Vector3 move = Vector3.zero;
 	private Vector3 diff;
+	private Renderer mat;
 	private readonly Vector3 Lane1 = new Vector3 (0, 0, -2); //手前のレーン
 	private readonly Vector3 Lane2 = new Vector3 (0, 0, 2);  //奥のレーン
 	private int jumpCount = 0;     //ジャンプ回数をカウント
+
 
 	public float speed = 6.0f;     //移動速度
 	public float jumpPower = 8.0f; //ジャンプの大きさ
 	public float gravity = 20.0f;  //重力
 	public int MaxJumpCount;       //ジャンプ回数上限
+	public Material front, back; //front用とback用のマテリアル
 
 	void Start () {
 		controller = GetComponent<CharacterController> ();
+		mat = GetComponent<Renderer> ();
 	}
 
 	void Update () {
@@ -30,8 +35,15 @@ public class PlayerController : MonoBehaviour {
 		move *= speed;
 		move.y += y;
 
-		//方向キー↑か↓を入力するとレーン移動
-		if (Input.GetKeyDown ("up") || Input.GetKeyDown ("down")) ChangeLane ();
+		//方向キー↑と↓の入力によってレーン移動とマテリアル変更
+		if (Input.GetKeyDown ("up")) {
+			ChangeLane ();
+			mat.material = back; 
+		}
+		else if(Input.GetKeyDown ("down")){
+			ChangeLane ();
+			mat.material = front; 
+		}
 
 		//地面に接地した場合重力とジャンプ回数リセット
 		if (controller.isGrounded) {
@@ -45,7 +57,7 @@ public class PlayerController : MonoBehaviour {
 			jumpCount++;
 		}
 
-		move.y -= gravity * Time.deltaTime;      //重力処理
+		move.y -= gravity * Time.deltaTime;  //重力処理
 		controller.Move (move * Time.deltaTime); //移動処理
 	}
 
